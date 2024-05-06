@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Number Accepter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        input, p {
+            padding: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 5px;
+            font-size: 16px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #result, #fileInfo {
+            margin-top: 20px;
+            border: 1px solid rgb(185, 225, 235);
+            background-color: rgb(175, 231, 237);
+            padding: 10px;
+            display: none;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a, nav button {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: black;
+            background-color: #e6b1df;
+            border: 1px solid gray;
+            margin-right: 10px; /* Spacing between nav items */
+        }
+        nav button {
+            color: rgb(0, 0, 0);
+            background-color: #e6b1df;
+        }
+        nav a.aboutLink {
+            color: blue;
+            text-decoration: underline;
+            background-color: transparent;
+            border: none;
+            margin-right: 10px; /* Spacing between nav items */
+        }
+        nav a:hover, nav button:hover, nav a.aboutLink:hover {
+            background-color: gray;
+            color: white;
+        }
+        #fileInput {
+            display: none;
+        }
+        #aboutUsContent {
+            margin-top: 5cm; /* Changed from 50px to 5cm */
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0s 0.3s;
+        }
+        #aboutUsContent.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s;
+            color: #000000;
+        }
+        #aboutUsContent h2 {
+            margin-top: 0;
+            color: #db98d2;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainContent">
+        <h1>~Scientific Number Accepter~</h1>
+        <nav>
+            <button onclick="triggerFileUpload()">Upload File</button>
+            <input type="file" id="fileInput" onchange="fileUploaded()">
+            <a href="edit.html">Edit</a>
+            <a href="run.html">Run</a>
+            <a href="javascript:showAboutUs()" class="aboutLink">About Us</a>
+        </nav>
+        <input type="text" id="numberInput" placeholder="Enter a scientific number">
+        <button onclick="validateNumber()">Check</button>
+        <p id="result"></p>
+        <p id="fileInfo"></p>
+        <div id="aboutUsContent">
+            <h2>About Us</h2>
+            <p>Elrica Meriana Isabel Tutu, NIM 221011060108.</p>
+            <p>Mahasiswa Sistem Informasi Universitas Sam Ratulangi Manado Angkatan 2022.</p>
+        </div>
+    </div>
+    <script>
+        function validateNumber() {
+            const input = document.getElementById('numberInput').value.trim();
+            const numberRegex = /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/;
+            const resultElement = document.getElementById('result');
+            if (numberRegex.test(input)) {
+                resultElement.textContent = 'Yes, it is a scientific number';
+            } else {
+                resultElement.textContent = 'No, it is not a scientific number';
+            }
+            resultElement.style.display = 'block';
+        }
+
+        let currentFile = null;
+        function triggerFileUpload() {
+            document.getElementById('fileInput').click();
+        }
+        function fileUploaded() {
+            currentFile = document.getElementById('fileInput').files[0];
+            const fileInfo = document.getElementById('fileInfo');
+            fileInfo.textContent = `File Name: ${currentFile.name}, Type: ${currentFile.type}`;
+            fileInfo.style.display = 'block';
+        }
+        function showAboutUs() {
+            const aboutUsContent = document.getElementById('aboutUsContent');
+            aboutUsContent.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
